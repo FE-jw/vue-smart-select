@@ -1,0 +1,14 @@
+{
+  "name": "vue-smartselect",
+  "version": "0.1.0",
+  "author": "JW",
+  "description": "[Vue.js] Smart Select",
+  "main": "dist/module.mjs",
+  "keywords": ["vue-smartselect", "smart select", "select module", "select custom"],
+  "homepage": "https://github.com/FE-jw/vue-smartselect",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FE-jw/vue-smartselect.git"
+  },
+  "license": "MIT"
+}
