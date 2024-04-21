@@ -1,7 +1,7 @@
-import smartselect from './smartselect.vue';
+import smartSelect from './smartSelect.vue';
 
 export default {
 	install(app){
-		app.component('smartselect', smartselect);
+		app.component('smart-select', smartSelect);
 	}
 };
