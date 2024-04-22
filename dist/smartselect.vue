@@ -1,14 +1,14 @@
 <template>
 	<div class="smartselect-wrap" :class="{ isOpen }">
-		<button type="button" class="select-button" @click="isOpenToggle">{{ currentValue }}</button>
+		<button type="button" class="select-button" @click="isOpenToggle">{{ currentText }}</button>
 		<ul class="select-list">
 			<li
 				v-for="(options, index) in props.options"
-				:key="options.key"
+				:key="options.value"
 				:class="{ disabled: options.disabled }"
 				@click="updateValue(options, index)"
 			>
-				{{ options.value }}
+				{{ options.text }}
 			</li>
 		</ul>
 	</div>
@@ -27,7 +27,7 @@ const props = defineProps({
 });
 
 const isOpen = ref(false);
-const currentValue = ref(props.placeholder);
+const currentText = ref(props.placeholder);
 const emit = defineEmits(['afterChange']);
 
 const updateValue = (options, index) => {
@@ -37,7 +37,7 @@ const updateValue = (options, index) => {
 	};
 
 	emit('afterChange', result);
-	currentValue.value = result.value;
+	currentText.value = result.value;
 };
 const isOpenToggle = () => {
 	isOpen.value = !isOpen.value;
@@ -57,9 +57,9 @@ const isOpenToggle = () => {
 <style scoped>
 /* Default */
 .smartselect-wrap	{width:300px;height:50px;position:relative;}
-.smartselect-wrap .select-button	{display:block;width:100%;height:100%;padding:0 2.0em;position:relative;border:1px solid var(--border-color);border-radius:var(--select-radius);font-size:16px;color:var(--select-font-color);background:var(--select-bg-color);cursor:pointer;}
-.smartselect-wrap .select-button:after	{content:'';width:0;height:0;position:absolute;right:10px;top:50%;border-style:solid;border-right:10px solid transparent;border-left:10px solid transparent;border-top:10px solid var(--arrow-color);border-bottom:0;transform:translateY(-50%);}
-.smartselect-wrap .select-list	{overflow-y:auto;display:none;width:100%;max-height:calc(180 / 16 * 1em);position:absolute;left:0;top:calc(100% + 2px);border:1px solid var(--border-color);border-radius:var(--select-radius);font-size:16px;color:var(--select-font-color);background-color:var(--select-bg-color);box-sizing:border-box;}
+.smartselect-wrap .select-button	{display:block;width:100%;height:100%;padding:0 2.0em;position:relative;border:1px solid var(--border-color);border-radius:var(--select-radius);line-height:1.3;font-size:16px;color:var(--select-font-color);background:var(--select-bg-color);cursor:pointer;}
+.smartselect-wrap .select-button:after	{content:'';width:0;height:0;position:absolute;right:10px;top:50%;border-style:solid;border-right:8px solid transparent;border-left:8px solid transparent;border-top:10px solid var(--arrow-color);border-bottom:0;transform:translateY(-50%);}
+.smartselect-wrap .select-list	{overflow-y:auto;display:none;width:100%;max-height:calc(180 / 16 * 1em);position:absolute;left:0;top:calc(100% + 2px);border:1px solid var(--border-color);border-radius:var(--select-radius);line-height:1.3;font-size:16px;color:var(--select-font-color);background-color:var(--select-bg-color);box-sizing:border-box;}
 .smartselect-wrap .select-list li	{display:flex;justify-content:center;align-items:center;min-height:1.5em;padding:0.5em 1.0rem;text-align:center;cursor:pointer;}
 .smartselect-wrap .select-list li ~ li	{border-top:1px solid var(--border-color);}
 .smartselect-wrap .select-list li.disabled	{color:#999;background-color:#eee;cursor:auto;pointer-events:none;}
