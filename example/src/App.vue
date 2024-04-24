@@ -1,14 +1,18 @@
 <template>
 	<div>
 		Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur corrupti adipisci aliquam totam quas aliquid, non molestiae magni odit impedit in voluptatem dolore eligendi quo dignissimos nulla, omnis recusandae consequatur ipsum vitae dicta? Neque maxime vero distinctio praesentium laboriosam voluptatem, tempore aperiam illo labore excepturi officiis beatae, aliquid cumque, aliquam impedit mollitia nemo. Corrupti numquam dolor porro aspernatur, facere quis voluptatem odio recusandae maiores eius harum animi autem expedita suscipit perferendis earum natus. Natus neque beatae, at enim maiores quis itaque nesciunt repellat possimus blanditiis ad mollitia illo et asperiores cum veniam facere odit impedit officia nihil. Dolores, amet sequi?
-		<button type="button" @click="addOption">클릭하면 options 추가</button>
+		<button type="button" @click="() => options.push({ value: 'test', text: '테스트' })">클릭하면 국가선택 test options 추가</button>
+		<div style="margin:20px;">셀렉트 1: {{ selectValue[1] }} // 셀렉트 2: {{ selectValue[2] }}</div>
 		<div class="select-items">
 			<smart-select
 				:options="options"
 				placeholder="국가 선택"
-				@afterChange="updateSelect"
+				@afterChange="updateSelect1"
 			/>
-			<SelectTest class="custom-select" />
+			<SelectTest
+				class="custom-select"
+				@afterChange="updateSelect2"
+			/>
 		</div>
 	</div>
 </template>
@@ -24,15 +28,16 @@ const options = reactive([
 	{ value: 'th', text: '태국' },
 	{ value: 'ja', text: '일본', disabled: true }
 ]);
+const selectValue = reactive({
+	1: '',
+	2: ''
+});
 
-const addOption = () => {
-	options.push(
-		{ value: 'test', text: '테스트' }
-	);
+const updateSelect1 = result => {
+	selectValue[1] = result.value;
 };
-
-const updateSelect = result => {
-	console.log(result);
+const updateSelect2 = result => {
+	selectValue[2] = result.value;
 };
 </script>
 

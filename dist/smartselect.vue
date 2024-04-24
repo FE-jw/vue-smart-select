@@ -1,12 +1,12 @@
 <template>
 	<div class="smartselect-wrap" :class="{ isOpen }">
-		<button type="button" class="select-button" @click="isOpenToggle">{{ currentText }}</button>
+		<button type="button" class="select-button" @click="selectToggle">{{ currentText }}</button>
 		<ul class="select-list">
 			<li
 				v-for="(options, index) in props.options"
 				:key="options.value"
 				:class="{ disabled: options.disabled }"
-				@click="updateValue(options, index)"
+				@click="updateValue(options, index, options.disabled)"
 			>
 				{{ options.text }}
 			</li>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
 	options: {
@@ -30,18 +30,45 @@ const isOpen = ref(false);
 const currentText = ref(props.placeholder);
 const emit = defineEmits(['afterChange']);
 
-const updateValue = (options, index) => {
-	const result = {
-		index,
-		...options
+const updateValue = (options, index, isDisabled) => {
+	if(!isDisabled){
+		const result = {
+			index,
+			...options
+		};
+	
+		emit('afterChange', result);
+		currentText.value = result.text;
+	}
+
+	selectClose();
+};
+const selectOpen = () => {
+	isOpen.value = true;
+};
+const selectClose = () => {
+	isOpen.value = false;
+};
+const selectToggle = () => {
+	isOpen.value = !isOpen.value;	
+};
+
+// smartselect-wrap 요소 이외 영역 클릭 시 닫기
+let clickOutsideHandler;
+onMounted(() => {
+	clickOutsideHandler = event => {
+		if(!event.target.closest('.smartselect-wrap')){
+			selectClose();
+		}
 	};
 
-	emit('afterChange', result);
-	currentText.value = result.value;
-};
-const isOpenToggle = () => {
-	isOpen.value = !isOpen.value;
-};
+	document.addEventListener('click', clickOutsideHandler);
+});
+
+onBeforeUnmount(() => {
+	console.log('onBeforeUnmount');
+	document.removeEventListener('click', clickOutsideHandler);
+});
 </script>
 
 <style>
@@ -62,7 +89,7 @@ const isOpenToggle = () => {
 .smartselect-wrap .select-list	{overflow-y:auto;display:none;width:100%;max-height:calc(180 / 16 * 1em);position:absolute;left:0;top:calc(100% + 2px);border:1px solid var(--border-color);border-radius:var(--select-radius);line-height:1.3;font-size:16px;color:var(--select-font-color);background-color:var(--select-bg-color);box-sizing:border-box;}
 .smartselect-wrap .select-list li	{display:flex;justify-content:center;align-items:center;min-height:1.5em;padding:0.5em 1.0rem;text-align:center;cursor:pointer;}
 .smartselect-wrap .select-list li ~ li	{border-top:1px solid var(--border-color);}
-.smartselect-wrap .select-list li.disabled	{color:#999;background-color:#eee;cursor:auto;pointer-events:none;}
+.smartselect-wrap .select-list li.disabled	{color:#999;background-color:#eee;}
 
 /* Open Select */
 .smartselect-wrap.isOpen .select-button:after	{transform:translateY(-50%) rotate(180deg);}
