@@ -2,15 +2,19 @@
 	<div>
 		Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur corrupti adipisci aliquam totam quas aliquid, non molestiae magni odit impedit in voluptatem dolore eligendi quo dignissimos nulla, omnis recusandae consequatur ipsum vitae dicta? Neque maxime vero distinctio praesentium laboriosam voluptatem, tempore aperiam illo labore excepturi officiis beatae, aliquid cumque, aliquam impedit mollitia nemo. Corrupti numquam dolor porro aspernatur, facere quis voluptatem odio recusandae maiores eius harum animi autem expedita suscipit perferendis earum natus. Natus neque beatae, at enim maiores quis itaque nesciunt repellat possimus blanditiis ad mollitia illo et asperiores cum veniam facere odit impedit officia nihil. Dolores, amet sequi?
 		<button type="button" @click="() => options.push({ value: 'test', text: '테스트' })">클릭하면 국가선택 test options 추가</button>
+		<button type="button" @click="isDisabled = !isDisabled">isDisabled Toggle</button>
 		<div style="margin:20px;">셀렉트 1: {{ selectValue[1] }} // 셀렉트 2: {{ selectValue[2] }}</div>
 		<div class="select-items">
 			<smart-select
+				class="my-select"
+				:class="{ isDisabled }"
 				:options="options"
 				placeholder="국가 선택"
 				@afterChange="updateSelect1"
 			/>
 			<SelectTest
 				class="custom-select"
+				:class="{ isDisabled }"
 				@afterChange="updateSelect2"
 			/>
 		</div>
@@ -19,7 +23,7 @@
 
 <script setup>
 import SelectTest from '@/components/SelectTest.vue';
-import { reactive } from 'vue';
+import { ref, reactive } from 'vue';
 
 const options = reactive([
 	{ value: 'ko', text: '한국' },
@@ -32,12 +36,15 @@ const selectValue = reactive({
 	1: '',
 	2: ''
 });
+const isDisabled = ref(false);
 
 const updateSelect1 = result => {
 	selectValue[1] = result.value;
+	console.log('Select1: ', result);
 };
 const updateSelect2 = result => {
 	selectValue[2] = result.value;
+	console.log('Select2: ', result);
 };
 </script>
 
@@ -49,11 +56,24 @@ body	{line-height:1.3;font-family:Arial, Helvetica, sans-serif;font-size:16px;co
 
 <style lang="scss" scoped>
 .select-items	{display:flex;gap:10px;}
+.my-select	{
+	&.isDisabled	{opacity:0.5;}
+	::v-deep(.selected){
+		color:#fff;background-color:#222;
+	}
+}
 .custom-select	{
 	--select-font-color: forestgreen;
 	--select-bg-color: lightyellow;
 	--select-radius: 10px;
 	--border-color: royalblue;
 	--arrow-color: royalblue;
+
+	&.isDisabled	{opacity:0.5;}
+
+	::v-deep(.selected){
+		color:#d33;
+		background-color:#ff0;
+	}
 }
 </style>

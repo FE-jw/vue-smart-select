@@ -2,7 +2,6 @@
 	<smart-select
 		:options="options"
 		placeholder="테스트"
-		@afterChange="updateSelect"
 	/>
 </template>
 
@@ -16,10 +15,6 @@ const options = reactive([
 	{ value: 4, text: 'test-4'},
 	{ value: 5, text: 'test-5'}
 ]);
-
-const updateSelect = result => {
-	console.log(result);
-};
 </script>
 
 <style lang="scss" scoped>
