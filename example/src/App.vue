@@ -7,14 +7,14 @@
 		<div class="select-items">
 			<smart-select
 				class="my-select"
-				:class="{ isDisabled }"
+				:isDisabled="isDisabled"
 				:options="options"
 				placeholder="국가 선택"
 				@afterChange="updateSelect1"
 			/>
 			<SelectTest
 				class="custom-select"
-				:class="{ isDisabled }"
+				:isDisabled="isDisabled"
 				@afterChange="updateSelect2"
 			/>
 		</div>
@@ -30,7 +30,9 @@ const options = reactive([
 	{ value: 'cn', text: '중국' },
 	{ value: 'en', text: '미국' },
 	{ value: 'th', text: '태국' },
-	{ value: 'ja', text: '일본', disabled: true }
+	{ value: 'ja', text: '일본' },
+	{ value: 'test1', text: '테스트' },
+	{ value: 'test2', text: '테스트' }
 ]);
 const selectValue = reactive({
 	1: '',
@@ -57,8 +59,7 @@ body	{line-height:1.3;font-family:Arial, Helvetica, sans-serif;font-size:16px;co
 <style lang="scss" scoped>
 .select-items	{display:flex;gap:10px;}
 .my-select	{
-	&.isDisabled	{opacity:0.5;}
-	::v-deep(.selected){
+	&:deep(.selected){
 		color:#fff;background-color:#222;
 	}
 }
@@ -69,9 +70,7 @@ body	{line-height:1.3;font-family:Arial, Helvetica, sans-serif;font-size:16px;co
 	--border-color: royalblue;
 	--arrow-color: royalblue;
 
-	&.isDisabled	{opacity:0.5;}
-
-	::v-deep(.selected){
+	&:deep(.selected){
 		color:#d33;
 		background-color:#ff0;
 	}
