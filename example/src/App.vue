@@ -52,27 +52,38 @@ const updateSelect2 = result => {
 
 <style lang="scss">
 *	{margin:0;padding:0;}
-html	{-webkit-text-size-adjust:none;}
+html	{-webkit-text-size-adjust:none;-webkit-overflow-scrolling:touch;}
 body	{line-height:1.3;font-family:Arial, Helvetica, sans-serif;font-size:16px;color:#000;}
 </style>
 
 <style lang="scss" scoped>
 .select-items	{display:flex;gap:10px;}
 .my-select	{
-	&:deep(.selected){
-		color:#fff;background-color:#222;
+	width:200px;height:50px;
+	&:hover	{
+		--select-border-color: #999;
+		--select-arrow-color: #999;
+	}
+	&.isOpen	{
+		&:deep(svg)	{transform:rotate(180deg);}
 	}
 }
 .custom-select	{
+	width:200px;height:40px;
+	--select-font-size: 14px;
 	--select-font-color: forestgreen;
 	--select-bg-color: lightyellow;
-	--select-radius: 10px;
-	--border-color: royalblue;
-	--arrow-color: royalblue;
+	--select-radius: 0;
+	--select-border-color: royalblue;
+	--select-arrow-color: royalblue;
+	--selected-font-color: #d33;
+	--selected-bg-color: #ff0;
+	--option-border-color: #000;
+	--option-font-color: #000;
 
-	&:deep(.selected){
-		color:#d33;
-		background-color:#ff0;
+	&:hover	{
+		--select-border-color: #d33;
+		--select-arrow-color: #d33;
 	}
 }
 </style>
