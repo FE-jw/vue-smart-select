@@ -1,7 +1,7 @@
 <template>
 	<div
 		ref="smartselect"
-		:data-smartselect="selectId"
+		:data-smartselect="selectID"
 		:class="{
 			isOpen,
 			isDisabled: props.isDisabled
@@ -17,7 +17,7 @@ import { ref, onMounted, onUnmounted, provide } from 'vue';
 import selectBtn from './selectBtn.vue';
 import selectList from './selectList.vue';
 const smartselect = ref(null);
-const selectId = Math.random().toString(36).substring(2);	// 10진수를 36진수로 변환 후 '0.' 제거
+const selectID = Math.random().toString(36).substring(2);	// 10진수를 36진수로 변환 후 '0.' 제거
 const emit = defineEmits(['afterChange']);
 const props = defineProps({
 	options: {
@@ -46,7 +46,7 @@ const updateValue = value => {
 	if(!props.isDisabled){
 		const { options, index } = value;
 		const result = {
-			selectId,
+			selectID,
 			index,
 			...options
 		};
@@ -72,7 +72,7 @@ const selectToggle = () => {
 // Provide
 provide('isOpen', { isOpen, selectToggle });
 provide('isDisabled', props.isDisabled);
-provide('selectId', selectId);
+provide('selectID', selectID);
 provide('options', props.options);
 provide('currentText', currentText);
 provide('currentValue', currentValue);
@@ -82,7 +82,7 @@ provide('arrow', props.arrow);
 let clickOutsideHandler;
 onMounted(() => {
 	clickOutsideHandler = event => {
-		if(!event.target.closest('[data-smartselect="' + selectId + '"]')){
+		if(!event.target.closest('[data-smartselect="' + selectID + '"]')){
 			selectClose();
 		}
 	};

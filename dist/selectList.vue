@@ -1,5 +1,5 @@
 <template>
-	<ul role="listbox" :id="'smartselect-' + selectId" :data-expanded="isOpen">
+	<ul role="listbox" :id="'smartselect-' + selectID" :data-expanded="isOpen">
 		<li
 			v-for="(options, index) in options"
 			tabindex="0"
@@ -17,7 +17,7 @@
 <script setup>
 import { inject } from 'vue';
 const emit = defineEmits(['onUpdate']);
-const selectId = inject('selectId');
+const selectID = inject('selectID');
 const options = inject('options');
 const currentValue = inject('currentValue');
 const { isOpen } = inject('isOpen');

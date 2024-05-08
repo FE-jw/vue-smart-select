@@ -2,19 +2,19 @@
 	<button
 		type="button"
 		:aria-expanded="isOpen"
-		:aria-controls="'smartselect-' + selectId"
+		:aria-controls="'smartselect-' + selectID"
 		aria-haspopup="listbox"
 		@click="selectToggle"
 	>
 		{{ currentText }}
-		<svg v-if="arrow" xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 64 64" fill="none"><path d="m24 28 8 8 8-8"/></svg>
+		<svg v-if="arrow" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 64 64" fill="none"><path d="m22 28 10 10 10-10"/></svg>
 	</button>
 </template>
 
 <script setup>
 import { inject } from 'vue';
 
-const selectId = inject('selectId');
+const selectID = inject('selectID');
 const currentText = inject('currentText');
 const arrow = inject('arrow');
 const { isOpen, selectToggle } = inject('isOpen');
