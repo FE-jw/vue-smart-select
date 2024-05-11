@@ -9,7 +9,7 @@
 				class="my-select"
 				:isDisabled="isDisabled"
 				:options="options"
-				placeholder="국가 선택"
+				:placeholder="placeholder"
 				@afterChange="updateSelect1"
 			/>
 			<SelectTest
@@ -25,6 +25,7 @@
 import SelectTest from '@/components/SelectTest.vue';
 import { ref, reactive } from 'vue';
 
+const placeholder = '국가 선택';
 const options = reactive([
 	{ value: 'ko', text: '한국' },
 	{ value: 'cn', text: '중국' },
