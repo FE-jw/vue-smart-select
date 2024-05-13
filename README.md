@@ -20,7 +20,7 @@ import App from './App.vue';
 import smartselect from 'vue-smart-select';	// Be sure to import 'vue-smart-select'
 
 createApp(App)
-	.use(smartselect)	// Use 'sta' in your app
+	.use(smartselect)	// Use 'smartselect' in your app
 	.mount('#app');
 ```
 
@@ -34,12 +34,6 @@ createApp(App)
 		:placeholder="placeholder"
 		@afterChange="updateSelect"
 	/>
-	<!-- 
-		These are Default Values
-
-		:isDisabled: false
-		:arrow: true
-	 -->
 </template>
 
 <script setup>
@@ -55,9 +49,12 @@ const options = [
 ];
 </script>
 ```
+* Default Values
+	* `:isDisabled: false`
+	* `:arrow: true`
 
 ## **Events**
-* afterChange: This event occurs after selecting an option. You can check the result object.
+* `afterChange`: This event occurs after selecting an option. You can check the result object.
 	```vue
 	<template>
 		<smart-select @afterChange="updateSelect" />
@@ -71,15 +68,15 @@ const options = [
 	```
 
 ## **How To Custom**
-1) Add your classname
+1) Add Your ClassName
 	```vue
-	<smart-select class="your-select" />
+	<smart-select class="your-class" />
 	```
 
 2) Set CSS Variables
 	```css
 	/* These are Default Values */
-	.your-select	{
+	.your-class	{
 		/* select button style */
 		--select-font-size: 16px;
 		--select-font-color: #000;
@@ -96,10 +93,10 @@ const options = [
 		--option-border-width: 1px;
 		--option-border-color: #ccc;
 	}
-	.your-select.isOpen	{/* after open select style */}
-	.your-select.isDisabled	{/* disabled state select style */}
+	.your-class.isOpen	{/* after open select style */}
+	.your-class.isDisabled	{/* disabled state select style */}
 	```
 
 ## **Change Log**
-* 0.1.0 (2024-##-##)
+* 0.1.0 (2024-05-13)
 	* Release Beta Version
